@@ -1,0 +1,26 @@
+services:
+  app:
+    platform: "linux/amd64"   # <— Apple Silicon: amd64 erzwingen
+    build: .
+    container_name: py-pandas-mssql
+    env_file: .env
+    volumes:
+      - .:/app
+    command: ["python", "app.py"]
+    depends_on:
+      - mssql
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssqldata:/var/opt/mssql
+
+volumes:
+  mssqldata:
