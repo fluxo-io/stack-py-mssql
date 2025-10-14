@@ -23,5 +23,13 @@ services:
   #   volumes:
   #     - mssqldata:/var/opt/mssql
 
+  shell:
+    image: stack-py-mssql_app
+    build: .
+    command: ["/bin/bash"]
+    volumes:
+      - .:/app
+      - ./data:/app/data
+
 # volumes:
 #   mssqldata:
