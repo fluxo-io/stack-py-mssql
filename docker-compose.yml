@@ -30,6 +30,7 @@ services:
     volumes:
       - .:/app
       - ./data:/app/data
+    env_file: .env
 
 # volumes:
 #   mssqldata:
